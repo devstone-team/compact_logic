@@ -1,0 +1,11 @@
+#OSX Misc File
+\.DS_Store
+
+#Build Artifacts
+\.gradle/
+
+\.idea/
+
+build/
+
+run/
