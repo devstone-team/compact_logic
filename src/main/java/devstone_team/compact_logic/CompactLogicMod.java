@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package devstone_team.compact_logic;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -18,14 +18,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod("examplemod")
-public class ExampleMod
-{
-    // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
 
-    public ExampleMod() {
+// Note this value should match the META-INF/mods.toml
+@Mod("compact_logic")
+public class CompactLogicMod {
+    private static final Logger sLogger = LogManager.getLogger();
+
+    // ==============================================
+    public CompactLogicMod() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -39,38 +39,46 @@ public class ExampleMod
         MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private void setup(final FMLCommonSetupEvent event)
-    {
+    // ==============================================
+    private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+        sLogger.info("COMPACT LOGIC SETUP - BEGIN =======================");
+
+        // register blocks
+        //sLogger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
+        sLogger.info("COMPACT LOGIC SETUP - END =======================");
     }
 
+    // ==============================================
     private void doClientStuff(final FMLClientSetupEvent event) {
-        // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
+        // client side only code
+        sLogger.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
+    // ==============================================
+    private void enqueueIMC(final InterModEnqueueEvent event) {
         // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
+        InterModComms.sendTo("examplemod", "helloworld", () -> { sLogger.info("Hello world from the MDK"); return "Hello world";});
     }
 
-    private void processIMC(final InterModProcessEvent event)
-    {
+    // ==============================================
+    private void processIMC(final InterModProcessEvent event) {
         // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
+        sLogger.info("Got IMC {}", event.getIMCStream().
                 map(m->m.getMessageSupplier().get()).
                 collect(Collectors.toList()));
     }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
+
+    // ==============================================
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {
         // do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        sLogger.info("COMPACT LOGIC SERVER SETUP - BEGIN =======================");
+        sLogger.info("COMPACT LOGIC SERVER SETUP - END =======================");
     }
 
+    // ==============================================
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
@@ -78,7 +86,6 @@ public class ExampleMod
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
-            LOGGER.info("HELLO from Register Block");
         }
     }
 }
