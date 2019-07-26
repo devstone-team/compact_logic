@@ -8,3 +8,9 @@ https://mcforge.readthedocs.io/en/1.13.x/gettingstarted/
 Recommended setup is IntelliJ
 
 Must have Java JDK 8, version 11.0.0 and higher are not supported by Forge
+
+
+### Notes on getting it to work in eclipse:
+1. run gradlew eclipse
+2. run gradlew genEclipseRuns
+

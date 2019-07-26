@@ -9,3 +9,14 @@
 build/
 
 run/
+
+
+# Eclipse artifacts
+\.classpath
+\.project
+\.settings/
+runClient.launch
+runServer.launch
+bin/
+
+
