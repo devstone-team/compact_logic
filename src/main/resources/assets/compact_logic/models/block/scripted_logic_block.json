@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_all",
+  "textures":
+  {
+    "all": "compact_logic:scripted_logic_block"
+  }
+}
